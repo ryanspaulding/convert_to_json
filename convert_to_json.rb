@@ -63,6 +63,16 @@ elsif @filename =~ /\.yaml/
 	end
 end
 
+# does the file already exist ? 
+if File.file?(@json_file)
+	puts "#{@json_file} already exists. Overwrite file? [y or n]:"
+	overwrite_file = $stdin.gets.chomp 
+	if overwrite_file !~ /[yY]/
+		puts "Did not convert #{@filename} to JSON format."
+		exit(0)
+	end
+end
+
 begin
 	@json_file_handle = File.new(@json_file, "w")
 	@json_file_handle.write(@data)
